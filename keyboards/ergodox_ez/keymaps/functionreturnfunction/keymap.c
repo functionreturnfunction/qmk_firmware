@@ -278,7 +278,7 @@ void matrix_scan_user(void) {
         case CLEAN:
             // Binary 1 represented by the leds
             // --*
-            ergodox_right_led_3_on();
+            ergodox_right_led_1_on();
             break;
         case MCRO:
             // Binary 2 represented by the leds
@@ -288,13 +288,13 @@ void matrix_scan_user(void) {
         case FUNCY:
             // Binary 3 represented by the leds
             // -**
-            ergodox_right_led_3_on();
+            ergodox_right_led_1_on();
             ergodox_right_led_2_on();
             break;
         case GAMIN:
             // Binary 4 represented by the leds
             // *--
-            ergodox_right_led_1_on();
+            ergodox_right_led_3_on();
             break;
         default:
             // none
