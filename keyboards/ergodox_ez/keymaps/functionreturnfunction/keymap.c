@@ -223,29 +223,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_VOLU,
      KC_VOLD,  KC_TRNS,  KC_TRNS
 ),
+/* Keymap 4: Gaming Layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * | Esc    |   1  |   2  |   3  |   4  |   5  |   6  |           |  Nop |  Nop |  Nop |  Nop |  Nop |  Nop |  Nop   |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |  L0  |           |  Nop |  Nop |  Nop |  Up  |  Nop |  Nop |  Nop   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | \      |   A  |   S  |   D  |   F  |   G  |------|           |------|  Nop |  Lft |  Dn  | Rght |  Nop |  Nop   |
+ * |--------+------+------+------+------+------|  Nop |           |  Nop |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |  Nop |  Nop |  Nop |  Nop |  Nop |  Nop   |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   | LCtrl| LCtrl| LGui | LAlt | LAlt |                                       |  Alt |  Nop |  Nop |  Nop | Ctrl |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        | Home | End  |       | Mute |  Nop |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      | PgDn |       | VolUp|      |      |
+ *                                 | Space| BkSpc|------|       |------| Enter| Space|
+ *                                 |      |      | PgUp |       | VolDn|      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+[GAMIN] = LAYOUT_ergodox(
+  // left hand
+      KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,
+      KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T, TO(BASE),
+     KC_BSLS,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,
+     KC_LSFT,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,    KC_NO,
+     KC_LCTL,  KC_LCTL,  KC_LGUI,  KC_LALT,  KC_LALT,
+                                                       KC_HOME,   KC_END,
+                                                                 KC_PGUP,
+                                              KC_SPC,  KC_BSPC,  KC_PGDN,
+  // right hand
+       KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+       KC_NO,    KC_NO,    KC_NO,    KC_UP,    KC_NO,    KC_NO,    KC_NO,
+                 KC_NO,  KC_LEFT,  KC_DOWN,  KC_RGHT,    KC_NO,    KC_NO,
+       KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+                         KC_RALT,    KC_NO,    KC_NO,    KC_NO,  KC_RCTL,
+     KC_MUTE,    KC_NO,
+     KC_VOLU,
+     KC_VOLD,   KC_ENT,    KCSPC
 ),
-/* [DEV] = LAYOUT_ergodox( */
-/*        // left hand */
-/*        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, */
-/*        KC_TRNS, KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_TRNS, */
-/*        KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, */
-/*        KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_TRNS, */
-/*        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, */
-/*                                            KC_TRNS, KC_TRNS, */
-/*                                                     KC_TRNS, */
-/*                                   KC_TRNS, KC_TRNS, KC_TRNS, */
-/*        // right hand */
-/*        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, */
-/*        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, */
-/*                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, */
-/*        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, */
-/*                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, */
-/*        KC_TRNS, KC_TRNS, */
-/*        KC_TRNS, */
-/*        KC_TRNS, KC_TRNS, KC_TRNS */
-/* ), */
-};
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 
