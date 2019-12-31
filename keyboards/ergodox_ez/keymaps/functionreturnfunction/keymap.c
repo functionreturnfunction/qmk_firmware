@@ -45,11 +45,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#define BASE  0
-#define CLEAN 1
-#define MCRO  2
-#define FUNCY 3
-#define GAMIN 4
+enum layers {
+  BASE = 0,
+  CLEAN,
+  MCRO,
+  FUNCY,
+  GAMIN,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Default Layer
