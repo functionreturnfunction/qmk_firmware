@@ -204,24 +204,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 [FUNCY] = LAYOUT_ergodox(
-       // left hand
-      TO(BASE),    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,
-       KC_TRNS,    KC_NO,  KC_MS_U,    KC_NO,    KC_NO,    KC_NO,TO(GAMIN),
-         KC_NO,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_TRNS,  KC_TRNS,
-       KC_TRNS,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,  KC_TRNS,
-       KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+  // left hand
+    TO(BASE),    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,
+     KC_TRNS,    KC_NO,  KC_MS_U,    KC_NO,    KC_NO,    KC_NO,TO(GAMIN),
+       KC_NO,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_TRNS,  KC_TRNS,
+     KC_TRNS,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,  KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                                                           KC_BTN2, KC_TRNS,
                                                                    KC_TRNS,
                                                  KC_BTN1, KC_TRNS, KC_TRNS,
-       // right hand
-         KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,    KC_NO,
-     TO(CLEAN),    KC_NO,    KC_P7,    KC_P8,    KC_P9,  KC_NLCK,    KC_NO,
-                   KC_NO,    KC_P4,    KC_P5,    KC_P6,    KC_NO,    KC_NO,
-       KC_TRNS,    KC_NO,    KC_P1,    KC_P2,    KC_P3,  KC_TRNS,    KC_NO,
-                             KC_P0,    KC_P0,   KC_DOT,  KC_BTN1,  KC_BTN2,
-       KC_MUTE,    KC_NO,
-       KC_VOLU,
-       KC_VOLD,  KC_TRNS,  KC_TRNS
+  // right hand
+       KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,    KC_NO,
+   TO(CLEAN),    KC_NO,    KC_P7,    KC_P8,    KC_P9,  KC_NLCK,    KC_NO,
+                 KC_NO,    KC_P4,    KC_P5,    KC_P6,    KC_NO,    KC_NO,
+     KC_TRNS,    KC_NO,    KC_P1,    KC_P2,    KC_P3,  KC_TRNS,    KC_NO,
+                           KC_P0,    KC_P0,   KC_DOT,  KC_BTN1,  KC_BTN2,
+     KC_MUTE,    KC_NO,
+     KC_VOLU,
+     KC_VOLD,  KC_TRNS,  KC_TRNS
+),
 ),
 /* [DEV] = LAYOUT_ergodox( */
 /*        // left hand */
