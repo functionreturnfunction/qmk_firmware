@@ -144,9 +144,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Macro Keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Lock  | C-x 1| C-x 2| C-x 3|  Nop |  Nop |  Nop |           |  Nop |  Nop |  Nop |  Nop |  Nop |  Nop | HshRckt|
+ * |  Lock  | C-x 1| C-x 2| C-x 3|  Nop |  Nop |  Nop |           |  Nop |  Nop |  Nop | RecM | StopM|  Nop | HshRckt|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |  Nop   |  Nop |  Nop |  Nop |  Nop |  Nop |  Nop |           |  M-{ |  Nop |  Nop |  Nop | C-x,o|  Nop |  M-}   |
+ * |  Nop   |  Nop |  Nop | PlayM|  Nop |  Nop |  Nop |           |  M-{ |  Nop |  Nop |  Nop | C-x,o|  Nop |  M-}   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  Nop   |  Nop |C-xC-s|  Nop |C-xC-f|  C-g |------|           |------|  Nop |  Nop |  Nop |  Nop |  Nop |  Nop   |
  * |--------+------+------+------+------+------|  Nop |           |  Nop |------+------+------+------+------+--------|
@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MCRO] = LAYOUT_ergodox(
     // left hand
      G(KC_L),      CX1,      CX2,      CX3,    KC_NO,    KC_NO,    KC_NO,
-       KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+       KC_NO,    KC_NO,    KC_NO,  DM_PLY1,    KC_NO,    KC_NO,    KC_NO,
        KC_NO,    KC_NO,     CXCS,    KC_NO,     CXCF,  C(KC_G),
        KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      CXB,    KC_NO,
        KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                    KC_NO,
                                              KC_TRNS,    KC_NO,    KC_NO,
     // right hand
-       KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,   HSHRKT,
+       KC_NO,    KC_NO,    KC_NO,  DM_REC1,  DM_RSTP,    KC_NO,   HSHRKT,
   A(KC_LCBR),    KC_NO,    KC_NO,    KC_NO,      CXO,    KC_NO,A(KC_RCBR),
                  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
        KC_NO,    KC_NO,    KC_NO, A(KC_LT), A(KC_GT),    KC_NO,    KC_NO,
