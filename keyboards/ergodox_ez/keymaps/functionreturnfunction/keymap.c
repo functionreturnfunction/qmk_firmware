@@ -51,10 +51,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 enum layers {
   BASE = 0,
-  CLEAN,
+  CLEN,
   MCRO,
-  FUNCY,
-  GAMIN,
+  FNCY,
+  GAME,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  Nop |           | [    |   Y  |   U  |   I  |   O  |   P  |   ]    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | \      |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  | '      |
- * |--------+------+------+------+------+------| ~L3  |           | ~L3  |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------| ~FNCY|           | ~FNCY|------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | LCtrl| LCtrl| LGui | LAlt | LAlt |                                       |  Lft |  Dn  |  Up  | Rght | RCtrl|
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        | Home | End  |       | Del  | Ins  |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | L2/  |      | PgDn |       | PrScr|      |      |
+ *                                 | MCRO/|      | PgDn |       | PrScr|      |      |
  *                                 | Space| BkSpc|------|       |------| Enter| Space|
  *                                 |      |      | PgUp |       | Pause|      |      |
  *                                 `--------------------'       `--------------------'
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,
       KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,    KC_NO,
      KC_BSLS,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,
-     KC_LSFT,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,MO(FUNCY),
+     KC_LSFT,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B, MO(FNCY),
      KC_LCTL,  KC_LCTL,  KC_LGUI,  KC_LALT,  KC_LALT,
                                                        KC_HOME,   KC_END,
                                                                  KC_PGUP,
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GRV,     KC_7,     KC_8,     KC_9,     KC_0,  KC_MINS,   KC_EQL,
      KC_LBRC,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,  KC_RBRC,
                   KC_H,     KC_J,     KC_K,     KC_L,  KC_SCLN,  KC_QUOT,
-   MO(FUNCY),     KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SLSH,  KC_RSFT,
+    MO(FNCY),     KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SLSH,  KC_RSFT,
                          KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,  KC_RCTL,
 
       KC_DEL,   KC_INS,
@@ -108,10 +108,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | Esc    |   1  |   2  |   3  |   4  |   5  |   6  |           |   `  |   7  |   8  |   9  |   0  |   -  |   =    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  L0  |           |  [   |   Y  |   U  |   I  |   O  |   P  |   ]    |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  | BASE |           |  [   |   Y  |   U  |   I  |   O  |   P  |   ]    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | \      |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  | '      |
- * |--------+------+------+------+------+------|  ~L3 |           |  ~L3 |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------| ~FNCY|           | ~FNCY|------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | LCtrl| LCtrl| LGui | LAlt | LAlt |                                       |  Lft |  Dn  |  Up  | Rght | RAlt |
@@ -124,12 +124,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | PgUp |       | Pause|      |      |
  *                                 `--------------------'       `--------------------'
  */
-  [CLEAN] = LAYOUT_ergodox(
+  [CLEN] = LAYOUT_ergodox(
     // left hand
      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, TO(BASE),
      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,MO(FUNCY),
+     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, MO(FNCY),
      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                                                        KC_TRNS,  KC_TRNS,
                                                                  KC_TRNS,
@@ -189,9 +189,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 3: Fn keys, number pad, mouse controls
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  L0    |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  Nop   |
+ * |  BASE  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  Nop   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |  TRNS  |  Nop |MousUp|  Nop |  Nop |  Nop |  L4  |           |  L1  |  Nop |   7  |   8  |   9  |  NUM |  Nop   |
+ * |  TRNS  |  Nop |MousUp|  Nop |  Nop |  Nop | GAME |           | CLEN |  Nop |   7  |   8  |   9  |  NUM |  Nop   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  Nop   |MousLf|MousDn|MousRt|  Nop |  Nop |------|           |------|  Nop |   4  |   5  |   6  |  Nop |  Nop   |
  * |--------+------+------+------+------+------| TRNS |           | TRNS |------+------+------+------+------+--------|
@@ -207,10 +207,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | TRNS |       | VolDn|      |      |
  *                                 `--------------------'       `--------------------'
  */
-[FUNCY] = LAYOUT_ergodox(
+[FNCY] = LAYOUT_ergodox(
   // left hand
     TO(BASE),    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,
-     KC_TRNS,    KC_NO,  KC_MS_U,    KC_NO,    KC_NO,    KC_NO,TO(GAMIN),
+     KC_TRNS,    KC_NO,  KC_MS_U,    KC_NO,    KC_NO,    KC_NO, TO(GAME),
        KC_NO,  KC_MS_L,  KC_MS_D,  KC_MS_R,    KC_NO,    KC_NO,
      KC_TRNS,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
@@ -219,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              KC_BTN1,  KC_TRNS,  KC_TRNS,
   // right hand
        KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,    KC_NO,
-   TO(CLEAN),    KC_NO,    KC_P7,    KC_P8,    KC_P9,  KC_NLCK,    KC_NO,
+    TO(CLEN),    KC_NO,    KC_P7,    KC_P8,    KC_P9,  KC_NLCK,    KC_NO,
                  KC_NO,    KC_P4,    KC_P5,    KC_P6,    KC_NO,    KC_NO,
      KC_TRNS,    KC_NO,    KC_P1,    KC_P2,    KC_P3,  KC_TRNS,    KC_NO,
                            KC_P0,    KC_P0,   KC_DOT,  KC_BTN1,  KC_BTN2,
@@ -232,7 +232,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | Esc    |   1  |   2  |   3  |   4  |   5  |   6  |           |  Nop |  Nop |  Nop |  Nop |  Nop |  Nop |  Nop   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  L0  |           |  Nop |  Nop |  Nop |  Up  |  Nop |  Nop |  Nop   |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  | BASE |           |  Nop |  Nop |  Nop |  Up  |  Nop |  Nop |  Nop   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | \      |   A  |   S  |   D  |   F  |   G  |------|           |------|  Nop |  Lft |  Dn  | Rght |  Nop |  Nop   |
  * |--------+------+------+------+------+------|  Nop |           |  Nop |------+------+------+------+------+--------|
@@ -248,7 +248,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | PgUp |       | VolDn|      |      |
  *                                 `--------------------'       `--------------------'
  */
-[GAMIN] = LAYOUT_ergodox(
+[GAME] = LAYOUT_ergodox(
   // left hand
       KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,
       KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T, TO(BASE),
@@ -279,7 +279,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     switch (layer) {
-        case CLEAN:
+        case CLEN:
             // Binary 1 represented by the leds
             // --*
             ergodox_right_led_1_on();
@@ -289,13 +289,13 @@ void matrix_scan_user(void) {
             // -*-
             ergodox_right_led_2_on();
             break;
-        case FUNCY:
+        case FNCY:
             // Binary 3 represented by the leds
             // -**
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
             break;
-        case GAMIN:
+        case GAME:
             // Binary 4 represented by the leds
             // *--
             ergodox_right_led_3_on();
