@@ -10,7 +10,8 @@ enum custom_keycodes {
   CXB,
   CXCS,
   CXCF,
-  HSHRKT,
+  MARROW,
+  EARROW,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -37,7 +38,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case CXCF:
         SEND_STRING(SS_LCTRL("xf"));
         return false;
-      case HSHRKT:
+      case MARROW:
+        SEND_STRING("->");
+        return false;
+      case EARROW:
         SEND_STRING("=>");
         return false;
     }
@@ -144,11 +148,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Macro Keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Lock  | C-x 1| C-x 2| C-x 3|  Nop |  Nop |  Nop |           |  Nop |  Nop |  Nop | RecM | StopM|  Nop | HshRckt|
+ * |  Lock  | C-x 1| C-x 2| C-x 3|  Nop |  Nop |  Nop |           |  Nop |  Nop |  Nop | RecM1| StopM|  ->  |   =>   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |  Nop   |  Nop |  Nop | PlayM|  Nop |  Nop |  Nop |           |  M-{ |  Nop |  Nop |  Nop | C-x,o|  Nop |  M-}   |
+ * |  Nop   |  Nop |  Nop |PlayM1|  Nop |  Nop |  Nop |           |  M-{ |  Nop |  Nop | RecM2| C-x,o|  Nop |  M-}   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  Nop   |  Nop |C-xC-s|  Nop |C-xC-f|  C-g |------|           |------|  Nop |  Nop |  Nop |  Nop |  Nop |  Nop   |
+ * |  Nop   |  Nop |C-xC-s|PlayM2|C-xC-f|  C-g |------|           |------|  Nop |  Nop |  Nop |  Nop |  Nop |  Nop   |
  * |--------+------+------+------+------+------|  Nop |           |  Nop |------+------+------+------+------+--------|
  * |  Nop   |  Nop |  Nop |  Nop |  Nop | C-x,b|      |           |      |  Nop |  Nop |  M-< |  M-> |  Nop |  Nop   |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -166,15 +170,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // left hand
      G(KC_L),      CX1,      CX2,      CX3,    KC_NO,    KC_NO,    KC_NO,
        KC_NO,    KC_NO,    KC_NO,  DM_PLY1,    KC_NO,    KC_NO,    KC_NO,
-       KC_NO,    KC_NO,     CXCS,    KC_NO,     CXCF,  C(KC_G),
+       KC_NO,    KC_NO,     CXCS,  DM_PLY2,     CXCF,  C(KC_G),
        KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      CXB,    KC_NO,
        KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
                                                          KC_NO,    KC_NO,
                                                                    KC_NO,
                                              KC_TRNS,    KC_NO,    KC_NO,
     // right hand
-       KC_NO,    KC_NO,    KC_NO,  DM_REC1,  DM_RSTP,    KC_NO,   HSHRKT,
-  A(KC_LCBR),    KC_NO,    KC_NO,    KC_NO,      CXO,    KC_NO,A(KC_RCBR),
+       KC_NO,    KC_NO,    KC_NO,  DM_REC1,  DM_RSTP,   MARROW,   EARROW,
+  A(KC_LCBR),    KC_NO,    KC_NO,  DM_REC2,      CXO,    KC_NO,A(KC_RCBR),
                  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
        KC_NO,    KC_NO,    KC_NO, A(KC_LT), A(KC_GT),    KC_NO,    KC_NO,
                            KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
