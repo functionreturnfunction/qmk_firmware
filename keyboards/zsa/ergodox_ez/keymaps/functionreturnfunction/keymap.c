@@ -280,42 +280,52 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_off();
     switch (layer) {
         case BASE:
+            // Color "Electric Indigo"
+            // #6100FF
             rgblight_enable_noeeprom();
             rgblight_mode_noeeprom(1);
-            rgblight_sethsv_noeeprom(188,255, 255);
+            rgblight_sethsv_noeeprom(188, 255, 255);
             break;
         case CLEN:
             // Binary 1 represented by the leds
             // --*
             ergodox_right_led_1_on();
+            // Color "Harlequin"
+            // #42FF00
             rgblight_enable_noeeprom();
             rgblight_mode_noeeprom(1);
-            rgblight_sethsv_noeeprom(74,255, 255);
+            rgblight_sethsv_noeeprom(74, 255, 255);
             break;
         case MCRO:
             // Binary 2 represented by the leds
             // -*-
             ergodox_right_led_2_on();
+            // Color "Assassin's Red"
+            // #f50909
             rgblight_enable_noeeprom();
             rgblight_mode_noeeprom(1);
-            rgblight_sethsv_noeeprom(0,245, 245);
+            rgblight_sethsv_noeeprom(0, 245, 245);
             break;
         case FNCY:
             // Binary 3 represented by the leds
             // -**
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
+            // Color "Blue Sparkle"
+            // #0075FF
             rgblight_enable_noeeprom();
             rgblight_mode_noeeprom(1);
-            rgblight_sethsv_noeeprom(152,255, 255);
+            rgblight_sethsv_noeeprom(152, 255, 255);
             break;
         case GAME:
             // Binary 4 represented by the leds
             // *--
             ergodox_right_led_3_on();
+            // Color "Cadmium Yellow"
+            // #FFF500
             rgblight_enable_noeeprom();
             rgblight_mode_noeeprom(1);
-            rgblight_sethsv_noeeprom(41,255, 255);
+            rgblight_sethsv_noeeprom(41, 255, 255);
             break;
         default:
             // none
