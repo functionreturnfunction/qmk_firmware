@@ -275,15 +275,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
+// Runs whenever the keyboard initializes
+void keyboard_post_init_user(void) {
+  rgblight_enable_noeeprom();
+  rgblight_mode_noeeprom(1);
+  rgblight_sethsv_noeeprom(188, 255, 255);
+}
+
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
-
-  rgblight_enable_noeeprom();
-  rgblight_mode_noeeprom(1);
 
   uint8_t layer = get_highest_layer(state);
 
@@ -331,4 +335,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       rgblight_disable();
       break;
   }
+
+  return state;
 };
