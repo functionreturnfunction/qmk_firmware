@@ -275,20 +275,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
-
+// Runs whenever there is a layer state change.
+layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
+
+  rgblight_enable_noeeprom();
+  rgblight_mode_noeeprom(1);
+
+  uint8_t layer = get_highest_layer(state);
+
   switch (layer) {
     case BASE:
       // Color "Electric Indigo"
       // #6100FF
-      rgblight_enable_noeeprom();
-      rgblight_mode_noeeprom(1);
       rgblight_sethsv_noeeprom(188, 255, 255);
       break;
     case CLEN:
@@ -297,8 +299,6 @@ void matrix_scan_user(void) {
       ergodox_right_led_1_on();
       // Color "Harlequin"
       // #42FF00
-      rgblight_enable_noeeprom();
-      rgblight_mode_noeeprom(1);
       rgblight_sethsv_noeeprom(74, 255, 255);
       break;
     case MCRO:
@@ -307,8 +307,6 @@ void matrix_scan_user(void) {
       ergodox_right_led_2_on();
       // Color "Assassin's Red"
       // #f50909
-      rgblight_enable_noeeprom();
-      rgblight_mode_noeeprom(1);
       rgblight_sethsv_noeeprom(0, 245, 245);
       break;
     case FNCY:
@@ -318,8 +316,6 @@ void matrix_scan_user(void) {
       ergodox_right_led_2_on();
       // Color "Blue Sparkle"
       // #0075FF
-      rgblight_enable_noeeprom();
-      rgblight_mode_noeeprom(1);
       rgblight_sethsv_noeeprom(152, 255, 255);
       break;
     case GAME:
@@ -328,8 +324,6 @@ void matrix_scan_user(void) {
       ergodox_right_led_3_on();
       // Color "Cadmium Yellow"
       // #FFF500
-      rgblight_enable_noeeprom();
-      rgblight_mode_noeeprom(1);
       rgblight_sethsv_noeeprom(41, 255, 255);
       break;
     default:
