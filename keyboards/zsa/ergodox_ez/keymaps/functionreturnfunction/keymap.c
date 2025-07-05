@@ -3,63 +3,63 @@
 #include "action_layer.h"
 
 enum custom_keycodes {
-  CX1 = SAFE_RANGE,
-  CX2,
-  CX3,
-  CXO,
-  CXB,
-  CXCS,
-  CXCF,
-  CCCXTAB,
-  MARROW,
-  EARROW,
+    CX1 = SAFE_RANGE,
+    CX2,
+    CX3,
+    CXO,
+    CXB,
+    CXCS,
+    CXCF,
+    CCCXTAB,
+    MARROW,
+    EARROW,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch (keycode) {
-      case CX1:
-        SEND_STRING(SS_LCTL("x") "1");
-        return false;
-      case CX2:
-        SEND_STRING(SS_LCTL("x") "2");
-        return false;
-      case CX3:
-        SEND_STRING(SS_LCTL("x") "3");
-        return false;
-      case CXO:
-        SEND_STRING(SS_LCTL("x") "o");
-        return false;
-      case CXB:
-        SEND_STRING(SS_LCTL("x") "b");
-        return false;
-      case CXCS:
-        SEND_STRING(SS_LCTL("xs"));
-        return false;
-      case CXCF:
-        SEND_STRING(SS_LCTL("xf"));
-        return false;
-      case CCCXTAB:
-        SEND_STRING(SS_LCTL("cx"));
-        SEND_STRING(SS_TAP(X_TAB));
-        return false;
-      case MARROW:
-        SEND_STRING("->");
-        return false;
-      case EARROW:
-        SEND_STRING("=>");
-        return false;
+    if (record->event.pressed) {
+        switch (keycode) {
+            case CX1:
+                SEND_STRING(SS_LCTL("x") "1");
+                return false;
+            case CX2:
+                SEND_STRING(SS_LCTL("x") "2");
+                return false;
+            case CX3:
+                SEND_STRING(SS_LCTL("x") "3");
+                return false;
+            case CXO:
+                SEND_STRING(SS_LCTL("x") "o");
+                return false;
+            case CXB:
+                SEND_STRING(SS_LCTL("x") "b");
+                return false;
+            case CXCS:
+                SEND_STRING(SS_LCTL("xs"));
+                return false;
+            case CXCF:
+                SEND_STRING(SS_LCTL("xf"));
+                return false;
+            case CCCXTAB:
+                SEND_STRING(SS_LCTL("cx"));
+                SEND_STRING(SS_TAP(X_TAB));
+                return false;
+            case MARROW:
+                SEND_STRING("->");
+                return false;
+            case EARROW:
+                SEND_STRING("=>");
+                return false;
+        }
     }
-  }
-  return true;
+    return true;
 }
 
 enum layers {
-  BASE = 0,
-  CLEN,
-  MCRO,
-  FNCY,
-  GAME,
+    BASE = 0,
+    CLEN,
+    MCRO,
+    FNCY,
+    GAME,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -277,64 +277,64 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Runs whenever the keyboard initializes
 void keyboard_post_init_user(void) {
-  rgblight_enable_noeeprom();
-  rgblight_mode_noeeprom(1);
-  rgblight_sethsv_noeeprom(188, 255, 255);
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(1);
+    rgblight_sethsv_noeeprom(188, 255, 255);
 }
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
-  ergodox_board_led_off();
-  ergodox_right_led_1_off();
-  ergodox_right_led_2_off();
-  ergodox_right_led_3_off();
+    ergodox_board_led_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
 
-  uint8_t layer = get_highest_layer(state);
+    uint8_t layer = get_highest_layer(state);
 
-  switch (layer) {
-    case BASE:
-      // Color "Electric Indigo"
-      // #6100FF
-      rgblight_sethsv_noeeprom(188, 255, 255);
-      break;
-    case CLEN:
-      // Binary 1 represented by the leds
-      // --*
-      ergodox_right_led_1_on();
-      // Color "Harlequin"
-      // #42FF00
-      rgblight_sethsv_noeeprom(74, 255, 255);
-      break;
-    case MCRO:
-      // Binary 2 represented by the leds
-      // -*-
-      ergodox_right_led_2_on();
-      // Color "Assassin's Red"
-      // #f50909
-      rgblight_sethsv_noeeprom(0, 245, 245);
-      break;
-    case FNCY:
-      // Binary 3 represented by the leds
-      // -**
-      ergodox_right_led_1_on();
-      ergodox_right_led_2_on();
-      // Color "Blue Sparkle"
-      // #0075FF
-      rgblight_sethsv_noeeprom(152, 255, 255);
-      break;
-    case GAME:
-      // Binary 4 represented by the leds
-      // *--
-      ergodox_right_led_3_on();
-      // Color "Cadmium Yellow"
-      // #FFF500
-      rgblight_sethsv_noeeprom(41, 255, 255);
-      break;
-    default:
-      // none
-      rgblight_disable();
-      break;
-  }
+    switch (layer) {
+        case BASE:
+            // Color "Electric Indigo"
+            // #6100FF
+            rgblight_sethsv_noeeprom(188, 255, 255);
+            break;
+        case CLEN:
+            // Binary 1 represented by the leds
+            // --*
+            ergodox_right_led_1_on();
+            // Color "Harlequin"
+            // #42FF00
+            rgblight_sethsv_noeeprom(74, 255, 255);
+            break;
+        case MCRO:
+            // Binary 2 represented by the leds
+            // -*-
+            ergodox_right_led_2_on();
+            // Color "Assassin's Red"
+            // #f50909
+            rgblight_sethsv_noeeprom(0, 245, 245);
+            break;
+        case FNCY:
+            // Binary 3 represented by the leds
+            // -**
+            ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
+            // Color "Blue Sparkle"
+            // #0075FF
+            rgblight_sethsv_noeeprom(152, 255, 255);
+            break;
+        case GAME:
+            // Binary 4 represented by the leds
+            // *--
+            ergodox_right_led_3_on();
+            // Color "Cadmium Yellow"
+            // #FFF500
+            rgblight_sethsv_noeeprom(41, 255, 255);
+            break;
+        default:
+            // none
+            rgblight_disable();
+            break;
+    }
 
-  return state;
+    return state;
 };
