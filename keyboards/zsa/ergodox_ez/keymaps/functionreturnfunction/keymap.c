@@ -2,6 +2,10 @@
 #include "debug.h"
 #include "action_layer.h"
 
+/*
+ * ENUMERATIONS
+ */
+
 enum custom_keycodes {
     CX1 = SAFE_RANGE,
     CX2,
@@ -15,6 +19,92 @@ enum custom_keycodes {
     EARROW,
 };
 
+enum layers {
+    BASE = 0,
+    CLEN,
+    MCRO,
+    FNCY,
+    GAME,
+};
+
+/*
+ * EVENT HOOKS
+ */
+
+// Runs whenever the keyboard initializes
+void keyboard_post_init_user(void) {
+    ergodox_board_led_off();
+
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(1);
+    rgblight_sethsv_noeeprom(188, 255, 255);
+
+    if (host_keyboard_led_state().num_lock) {
+        ergodox_right_led_1_on();
+    }
+    if (host_keyboard_led_state().caps_lock) {
+        ergodox_right_led_2_on();
+    }
+    if (host_keyboard_led_state().scroll_lock) {
+        ergodox_right_led_3_on();
+    }
+}
+
+// Runs whenever there is a layer state change.
+layer_state_t layer_state_set_user(layer_state_t state) {
+    uint8_t layer = get_highest_layer(state);
+
+    switch (layer) {
+        case BASE:
+            // Color "Electric Indigo"
+            // #6100FF
+            rgblight_sethsv_noeeprom(188, 255, 255);
+            break;
+        case CLEN:
+            // Color "Harlequin"
+            // #42FF00
+            rgblight_sethsv_noeeprom(74, 255, 255);
+            break;
+        case MCRO:
+            // Color "Assassin's Red"
+            // #f50909
+            rgblight_sethsv_noeeprom(0, 245, 245);
+            break;
+        case FNCY:
+            // Color "Blue Sparkle"
+            // #0075FF
+            rgblight_sethsv_noeeprom(152, 255, 255);
+            break;
+        case GAME:
+            // Color "Cadmium Yellow"
+            // #FFF500
+            rgblight_sethsv_noeeprom(41, 255, 255);
+            break;
+    }
+
+    return state;
+};
+
+// Runs whenever one of the num/caps/scroll lock states are toggled
+bool led_update_user(led_t led_state) {
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+
+    if (led_state.num_lock) {
+        ergodox_right_led_1_on();
+    }
+    if (led_state.caps_lock) {
+        ergodox_right_led_2_on();
+    }
+    if (led_state.scroll_lock) {
+        ergodox_right_led_3_on();
+    }
+
+    return true;
+}
+
+// Runs whenever a key event is fired
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
@@ -54,13 +144,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-enum layers {
-    BASE = 0,
-    CLEN,
-    MCRO,
-    FNCY,
-    GAME,
-};
+/*
+ * LAYER DEFITIONS
+ */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Default Layer
@@ -84,8 +170,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | PgUp |       | Pause|      |      |
  *                                 `--------------------'       `--------------------'
  */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
   [BASE] = LAYOUT_ergodox(
     // left hand
       KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,
@@ -275,75 +359,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-// Runs whenever the keyboard initializes
-void keyboard_post_init_user(void) {
-    ergodox_board_led_off();
-
-    rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(1);
-    rgblight_sethsv_noeeprom(188, 255, 255);
-
-    if (host_keyboard_led_state().num_lock) {
-        ergodox_right_led_1_on();
-    }
-    if (host_keyboard_led_state().caps_lock) {
-        ergodox_right_led_2_on();
-    }
-    if (host_keyboard_led_state().scroll_lock) {
-        ergodox_right_led_3_on();
-    }
-}
-
-// Runs whenever one of the num/caps/scroll lock states are toggled
-bool led_update_user(led_t led_state) {
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-
-    if (led_state.num_lock) {
-        ergodox_right_led_1_on();
-    }
-    if (led_state.caps_lock) {
-        ergodox_right_led_2_on();
-    }
-    if (led_state.scroll_lock) {
-        ergodox_right_led_3_on();
-    }
-
-    return true;
-}
-
-// Runs whenever there is a layer state change.
-layer_state_t layer_state_set_user(layer_state_t state) {
-    uint8_t layer = get_highest_layer(state);
-
-    switch (layer) {
-        case BASE:
-            // Color "Electric Indigo"
-            // #6100FF
-            rgblight_sethsv_noeeprom(188, 255, 255);
-            break;
-        case CLEN:
-            // Color "Harlequin"
-            // #42FF00
-            rgblight_sethsv_noeeprom(74, 255, 255);
-            break;
-        case MCRO:
-            // Color "Assassin's Red"
-            // #f50909
-            rgblight_sethsv_noeeprom(0, 245, 245);
-            break;
-        case FNCY:
-            // Color "Blue Sparkle"
-            // #0075FF
-            rgblight_sethsv_noeeprom(152, 255, 255);
-            break;
-        case GAME:
-            // Color "Cadmium Yellow"
-            // #FFF500
-            rgblight_sethsv_noeeprom(41, 255, 255);
-            break;
-    }
-
-    return state;
-};
