@@ -39,6 +39,7 @@ enum custom_keycodes {
     CXB,
     CXCS,
     CXCF,
+    CCCT,
     CCCXTAB,
     MARROW,
     EARROW,
@@ -194,6 +195,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CXCF:
                 SEND_STRING(SS_LCTL("xf"));
                 return false;
+            case CCCT:
+                SEND_STRING(SS_LCTL("ct"));
+                return false;
             case CCCXTAB:
                 SEND_STRING(SS_LCTL("cx"));
                 SEND_STRING(SS_TAP(X_TAB));
@@ -304,7 +308,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |  Lock  | C-x 1| C-x 2| C-x 3|  Nop |  Nop |  Nop |           |  Nop |  Nop |  Nop | RecM1| StopM|  ->  |   =>   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |C-cC-xTb|  Nop |  Nop |PlayM1|  Nop |  Nop |  Nop |           |  M-{ |  Nop |  Nop | RecM2| C-x,o|  Nop |  M-}   |
+ * |C-cC-xTb|  Nop |  Nop |PlayM1|  Nop |C-cC-t|  Nop |           |  M-{ |  Nop |  Nop | RecM2| C-x,o|  Nop |  M-}   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  Nop   |  Nop |C-xC-s|PlayM2|C-xC-f|  C-g |------|           |------|  Nop |  Nop |  Nop |  Nop |  Nop |  Nop   |
  * |--------+------+------+------+------+------|  Nop |           |  Nop |------+------+------+------+------+--------|
@@ -323,7 +327,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MCRO] = LAYOUT_ergodox(
     // left hand
      G(KC_L),      CX1,      CX2,      CX3,    KC_NO,    KC_NO,    KC_NO,
-     CCCXTAB,    KC_NO,    KC_NO,  DM_PLY1,    KC_NO,    KC_NO,    KC_NO,
+     CCCXTAB,    KC_NO,    KC_NO,  DM_PLY1,    KC_NO,     CCCT,    KC_NO,
        KC_NO,    KC_NO,     CXCS,  DM_PLY2,     CXCF,  C(KC_G),
        KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      CXB,    KC_NO,
        KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
