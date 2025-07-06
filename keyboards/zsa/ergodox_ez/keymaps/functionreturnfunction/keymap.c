@@ -174,37 +174,48 @@ bool led_update_user(led_t led_state) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
+            // C-x 1 (delete-other-windows)
             case CX1:
                 SEND_STRING(SS_LCTL("x") "1");
                 return false;
+            // C-x 2 (split-window-below)
             case CX2:
                 SEND_STRING(SS_LCTL("x") "2");
                 return false;
+            // C-x 3 (split-window-right)
             case CX3:
                 SEND_STRING(SS_LCTL("x") "3");
                 return false;
+            // C-x 0 (other-window)
             case CXO:
                 SEND_STRING(SS_LCTL("x") "o");
                 return false;
+            // C-x b (switch-to-buffer)
             case CXB:
                 SEND_STRING(SS_LCTL("x") "b");
                 return false;
+            // C-x C-s (save-buffer)
             case CXCS:
                 SEND_STRING(SS_LCTL("xs"));
                 return false;
+            // C-x C-f (find-file)
             case CXCF:
                 SEND_STRING(SS_LCTL("xf"));
                 return false;
+            // C-c C-t (org-todo)
             case CCCT:
                 SEND_STRING(SS_LCTL("ct"));
                 return false;
+            // C-c C-x tab (org-clock-in)
             case CCCXTAB:
                 SEND_STRING(SS_LCTL("cx"));
                 SEND_STRING(SS_TAP(X_TAB));
                 return false;
+            // type "->"
             case MARROW:
                 SEND_STRING("->");
                 return false;
+            // type "=>"
             case EARROW:
                 SEND_STRING("=>");
                 return false;
