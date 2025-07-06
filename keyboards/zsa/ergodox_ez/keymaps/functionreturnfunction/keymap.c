@@ -1,9 +1,34 @@
 #include QMK_KEYBOARD_H
-#include "debug.h"
 #include "action_layer.h"
+#include "color.h"
+#include "debug.h"
+#include "version.h"
 
 /*
- * ENUMERATIONS
+ * MACROS/CONSTANTS
+ */
+
+// How long to leave RGB underglow on after swithcing layers
+#define LED_SLEEP_TIMEOUT_MS 5000
+
+// Color "Electric Indigo"
+// #6100FF
+#define HSV_BASE  188, 255, 255
+// Color "Harlequin"
+// #42FF00
+#define HSV_CLEAN 74, 255, 255
+// Color "Assassin's Red"
+// #f50909
+#define HSV_MACRO 0, 245, 245
+// Color "Blue Sparkle"
+// #0075FF
+#define HSV_FNCY  152, 255, 255
+// Color "Cadmium Yellow"
+// #FFF500
+#define HSV_GAME  41, 255, 255
+
+/*
+ * ENUMERATIONS/LOOKUP TABLES
  */
 
 enum custom_keycodes {
@@ -24,8 +49,68 @@ enum layers {
     CLEN,
     MCRO,
     FNCY,
-    GAME,
+    GAME
 };
+
+const hsv_t layer_lights[] = {
+    {HSV_BASE},
+    {HSV_CLEAN},
+    {HSV_MACRO},
+    {HSV_FNCY},
+    {HSV_GAME}
+};
+
+/*
+ * VARIABLES
+ */
+
+deferred_token led_sleep_token = 0;
+uint8_t previous_layer = 255;
+
+/*
+ * PRIVATE FUNCTIONS
+ */
+
+uint32_t led_sleep_callback(uint32_t trigger_time, void *cb_arg) {
+    rgblight_disable_noeeprom();
+
+    led_sleep_token = 0;
+
+    return 0;
+}
+
+void try_cancel_led_sleep_callback(void) {
+    if (led_sleep_token == 0) {
+        return;
+    }
+
+    cancel_deferred_exec(led_sleep_token);
+    led_sleep_token = 0;
+}
+
+void reset_led_sleep_callback(void) {
+    if (led_sleep_token == 0) {
+        led_sleep_token = defer_exec(LED_SLEEP_TIMEOUT_MS, led_sleep_callback, NULL);
+    } else {
+        extend_deferred_exec(led_sleep_token, LED_SLEEP_TIMEOUT_MS);
+    }
+}
+
+void on_layer_change(uint8_t new_layer, uint8_t old_layer) {
+    hsv_t new_layer_hsv = layer_lights[new_layer];
+
+    rgblight_enable_noeeprom();
+    rgblight_sethsv_noeeprom(new_layer_hsv.h, new_layer_hsv.s, new_layer_hsv.v);
+
+    // On the base layer display the base layer color and then disable after
+    // LED_SLEEP_TIMEOUT_MS miliseconds.  On any other layer display that
+    // layer's color and leave it on.
+    if (new_layer == BASE) {
+        reset_led_sleep_callback();
+    } else {
+        try_cancel_led_sleep_callback();
+    }
+}
 
 /*
  * EVENT HOOKS
@@ -35,9 +120,9 @@ enum layers {
 void keyboard_post_init_user(void) {
     ergodox_board_led_off();
 
-    rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
-    rgblight_sethsv_noeeprom(188, 255, 255);
+
+    on_layer_change(BASE, BASE);
 
     if (host_keyboard_led_state().num_lock) {
         ergodox_right_led_1_on();
@@ -54,33 +139,13 @@ void keyboard_post_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = get_highest_layer(state);
 
-    switch (layer) {
-        case BASE:
-            // Color "Electric Indigo"
-            // #6100FF
-            rgblight_sethsv_noeeprom(188, 255, 255);
-            break;
-        case CLEN:
-            // Color "Harlequin"
-            // #42FF00
-            rgblight_sethsv_noeeprom(74, 255, 255);
-            break;
-        case MCRO:
-            // Color "Assassin's Red"
-            // #f50909
-            rgblight_sethsv_noeeprom(0, 245, 245);
-            break;
-        case FNCY:
-            // Color "Blue Sparkle"
-            // #0075FF
-            rgblight_sethsv_noeeprom(152, 255, 255);
-            break;
-        case GAME:
-            // Color "Cadmium Yellow"
-            // #FFF500
-            rgblight_sethsv_noeeprom(41, 255, 255);
-            break;
+    if (layer == previous_layer) {
+        return state;
     }
+
+    previous_layer = layer;
+
+    on_layer_change(layer, previous_layer);
 
     return state;
 };
