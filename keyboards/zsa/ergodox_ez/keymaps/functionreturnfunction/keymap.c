@@ -32,17 +32,18 @@
  */
 
 enum custom_keycodes {
-    CX1 = SAFE_RANGE,
+    CCCT = SAFE_RANGE,
+    CCCXTAB,
+    CF5,
+    CX1,
     CX2,
     CX3,
     CXO,
     CXB,
-    CXCS,
     CXCF,
-    CCCT,
-    CCCXTAB,
-    MARROW,
+    CXCS,
     EARROW,
+    MARROW,
 };
 
 enum layers {
@@ -174,6 +175,21 @@ bool led_update_user(led_t led_state) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
+            // C-c C-t (org-todo)
+            case CCCT:
+                SEND_STRING(SS_LCTL("ct"));
+                return false;
+            // C-c C-x tab (org-clock-in)
+            case CCCXTAB:
+                SEND_STRING(SS_LCTL("cx"));
+                SEND_STRING(SS_TAP(X_TAB));
+                return false;
+            // Ctrl+F5 (refresh web browsers)
+            case CF5:
+                register_code(KC_LCTL);
+                tap_code(KC_F5);
+                unregister_code(KC_LCTL);
+                return false;
             // C-x 1 (delete-other-windows)
             case CX1:
                 SEND_STRING(SS_LCTL("x") "1");
@@ -194,30 +210,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CXB:
                 SEND_STRING(SS_LCTL("x") "b");
                 return false;
-            // C-x C-s (save-buffer)
-            case CXCS:
-                SEND_STRING(SS_LCTL("xs"));
-                return false;
             // C-x C-f (find-file)
             case CXCF:
                 SEND_STRING(SS_LCTL("xf"));
                 return false;
-            // C-c C-t (org-todo)
-            case CCCT:
-                SEND_STRING(SS_LCTL("ct"));
-                return false;
-            // C-c C-x tab (org-clock-in)
-            case CCCXTAB:
-                SEND_STRING(SS_LCTL("cx"));
-                SEND_STRING(SS_TAP(X_TAB));
-                return false;
-            // type "->"
-            case MARROW:
-                SEND_STRING("->");
+            // C-x C-s (save-buffer)
+            case CXCS:
+                SEND_STRING(SS_LCTL("xs"));
                 return false;
             // type "=>"
             case EARROW:
                 SEND_STRING("=>");
+                return false;
+            // type "->"
+            case MARROW:
+                SEND_STRING("->");
                 return false;
         }
     }
@@ -259,7 +266,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LCTL,  KC_LCTL,  KC_LGUI,  KC_LALT,  KC_LALT,
                                                        KC_HOME,   KC_END,
                                                                  KC_PGUP,
-                                    LT(MCRO, KC_SPC), KC_BSPC,  KC_PGDN,
+                                    LT(MCRO, KC_SPC),  KC_BSPC,  KC_PGDN,
 
     // right hand
       KC_GRV,     KC_7,     KC_8,     KC_9,     KC_0,  KC_MINS,   KC_EQL,
@@ -317,7 +324,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Macro Keys
  *
  * ,--------------------------------------------------.    ,--------------------------------------------------.
- * |  Lock  | C-x 1| C-x 2| C-x 3|  Nop |  Nop |  Nop |    |  Nop |  Nop |  Nop | RecM1| StopM|  ->  |   =>   |
+ * |  Lock  | C-x 1| C-x 2| C-x 3|  Nop | C-F5 |  Nop |    |  Nop |  Nop |  Nop | RecM1| StopM|  ->  |   =>   |
  * |--------+------+------+------+------+-------------|    |------+------+------+------+------+------+--------|
  * |C-cC-xTb|  Nop |  Nop |PlayM1|  Nop |C-cC-t|  Nop |    |  M-{ |  Nop |  Nop | RecM2| C-x,o|  Nop |  M-}   |
  * |--------+------+------+------+------+------|      |    |      |------+------+------+------+------+--------|
@@ -337,7 +344,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [MCRO] = LAYOUT_ergodox(
     // left hand
-     G(KC_L),      CX1,      CX2,      CX3,    KC_NO,    KC_NO,    KC_NO,
+     G(KC_L),      CX1,      CX2,      CX3,    KC_NO,      CF5,    KC_NO,
      CCCXTAB,    KC_NO,    KC_NO,  DM_PLY1,    KC_NO,     CCCT,    KC_NO,
        KC_NO,    KC_NO,     CXCS,  DM_PLY2,     CXCF,  C(KC_G),
        KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      CXB,    KC_NO,
